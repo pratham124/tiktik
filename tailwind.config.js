@@ -23,7 +23,6 @@ module.exports = {
       },
       screens: {
         xs: "475px",
-        issue: "476px",
         sm: "575px",
       },
       top: {
