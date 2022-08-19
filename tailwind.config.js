@@ -21,6 +21,11 @@ module.exports = {
         900: "900px",
         458: "458px",
       },
+      screens: {
+        xs: "475px",
+        issue: "476px",
+        sm: "575px",
+      },
       top: {
         " 50%": "50%",
       },
