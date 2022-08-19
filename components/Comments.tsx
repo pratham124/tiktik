@@ -64,7 +64,9 @@ const Comments = ({
                     </Link>
 
                     <div>
-                      <p>{item.comment}</p>
+                      <p className="mb-2">
+                        {user.userName}: {item.comment}
+                      </p>
                     </div>
                   </div>
                 )
