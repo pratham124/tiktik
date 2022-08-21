@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import useAuthStore from "../store/authStore";
 import { client } from "../utils/client";
 import { SanityAssetDocument } from "@sanity/client";
 import { topics } from "../utils/constants";
 import { BASE_URL } from "../utils";
+import { ThreeDots } from "react-loader-spinner";
 
 const FILETYPES = ["video/mp4", "video/webm", "video/ogg"];
 
@@ -27,6 +27,7 @@ const Upload = () => {
     const selectedFile = e.target.files[0];
 
     if (FILETYPES.includes(selectedFile.type)) {
+      setisLoading(true);
       client.assets
         .upload("file", selectedFile, {
           contentType: selectedFile.type,
@@ -40,6 +41,12 @@ const Upload = () => {
       setisLoading(false);
       setwrongFileType(true);
     }
+  };
+
+  const handleDiscard = () => {
+    setsavingPost(false);
+    setvideoAsset(undefined);
+    setcaption("");
   };
 
   const postHandler = async (e: any) => {
@@ -71,7 +78,7 @@ const Upload = () => {
   };
 
   return (
-    <div className="flex w-full h-full absolute left-0 top-[70px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
+    <div className="flex w-full h-full absolute left-0 top-[60px] lg:top-[70px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
       <div className="bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap  items-center p-14 pt-6  justify-center">
         <div>
           <div>
@@ -80,18 +87,34 @@ const Upload = () => {
               Post a video to your account
             </p>
           </div>
-          <div className="border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[460px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100">
-            {isLoading && <p>Uploading...</p>}
+          <div className="border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[458px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100">
+            {isLoading && (
+              // <p className="text-center text-3xl text-red-400 font-semibold">
+              //   Uploading...
+              // </p>
+              <ThreeDots
+                height="80"
+                width="80"
+                radius="9"
+                color="#F51997"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                visible={true}
+              />
+            )}
             {!isLoading && (
               <div>
                 {videoAsset && (
-                  <div>
+                  <div className="rounded-3xl w-[300px]  p-4 flex flex-col gap-6 justify-center items-center ">
                     <video
-                      src={videoAsset.url}
+                      className="rounded-xl h-[462px] mt-16 bg-black"
                       loop
                       controls
-                      className="rounded-xl h-[450px] mt-16 bg-black"
+                      src={videoAsset.url}
                     ></video>
+                    <div className=" flex justify-between gap-20">
+                      <p className="text-lg">{videoAsset.originalFilename}</p>
+                    </div>
                   </div>
                 )}
                 {!videoAsset && (
@@ -131,7 +154,7 @@ const Upload = () => {
           </div>
         </div>
         <div className="flex flex-col gap-3 pb-10">
-          <label className="text-md font-medium">Caption</label>
+          <label className="text-md font-medium pt-10 md:pt-0">Caption</label>
           <input
             type="text"
             value={caption}
@@ -164,7 +187,7 @@ const Upload = () => {
               Post
             </button>
             <button
-              onClick={() => {}}
+              onClick={handleDiscard}
               type="button"
               className="border-gray-300 border-2 text-md font-medium p-2 rounded w-28 lg:w-44 outline-none"
             >
