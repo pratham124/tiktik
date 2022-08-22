@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { BASE_URL } from "../utils";
+import { IUser } from "../types";
 
 interface userState {
-  userProfile: any;
-  allUsers: any[];
+  userProfile: null | IUser;
+  allUsers: any[] | IUser[];
 }
 
 export const fetchUsers = createAsyncThunk("user/fetchUsers", async () => {

@@ -33,7 +33,7 @@ const Search = ({ videos }: { videos: Video[] }) => {
         <title>Search Results</title>
         <meta
           name="Search"
-          content="Search page where users are able to check if an account or post exists for the search term they inputted"
+          content="Search page where users are able to check if an account or post exists for the search term they input"
         />
         <link rel="icon" href="/video-player.png" />
       </Head>
