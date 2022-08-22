@@ -12,6 +12,8 @@ import { Video } from "../../types";
 import useAuthStore from "../../store/authStore";
 import LikeButton from "../../components/LikeButton";
 import Comments from "../../components/Comments";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../store/store";
 
 interface Iprops {
   postDetails: Video;
@@ -26,6 +28,7 @@ const Detail = ({ postDetails }: Iprops) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
   const { userProfile }: any = useAuthStore();
+  const user = useSelector((state: RootState) => state.user.userProfile);
 
   useEffect(() => {
     if (videoRef?.current) {

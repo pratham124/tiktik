@@ -4,13 +4,21 @@ import Link from "next/link";
 import { GoVerified } from "react-icons/go";
 import useAuthStore from "../store/authStore";
 import { IUser } from "../types";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../store/store";
+import { fetchUsers } from "../store/userSlice";
 
 const SuggestedAccounts = () => {
   const { fetchAllUsers, allUsers } = useAuthStore();
+  const totalUsers = useSelector((state: RootState) => {
+    state.user.allUsers;
+  });
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     fetchAllUsers();
-  }, [fetchAllUsers]);
+    dispatch(fetchUsers());
+  }, [dispatch, fetchAllUsers]);
 
   return (
     <div className="xl:border-b-2 border-gray-200 pb-4">

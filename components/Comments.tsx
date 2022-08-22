@@ -5,6 +5,8 @@ import { GoVerified } from "react-icons/go";
 import useAuthStore from "../store/authStore";
 import NoResults from "./NoResults";
 import { IUser } from "../types";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 interface IProps {
   isPostingComment: Boolean;
@@ -29,6 +31,8 @@ const Comments = ({
   isPostingComment,
 }: IProps) => {
   const { userProfile, allUsers }: any = useAuthStore();
+  const users = useSelector((state: RootState) => state.user.userProfile);
+  const totalUsers = useSelector((state: RootState) => state.user.allUsers);
 
   return (
     <div className="border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]">

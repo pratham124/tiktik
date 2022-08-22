@@ -10,12 +10,17 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { createOrGetUser } from "../utils";
 import useAuthStore from "../store/authStore";
 import { IUser } from "../types";
+import { userAdd, userRemove } from "../store/userSlice";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../store/store";
 
 const Navbar = () => {
   const { userProfile, addUser, removeUser } = useAuthStore();
   const [user, setuser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
+  const client = useSelector((state: RootState) => state.user.userProfile);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setuser(userProfile);
@@ -93,6 +98,7 @@ const Navbar = () => {
               onClick={() => {
                 googleLogout();
                 removeUser();
+                dispatch(userRemove());
               }}
             >
               <AiOutlineLogout color="red" fontSize={21} />
@@ -101,7 +107,17 @@ const Navbar = () => {
         )}
         {!user && (
           <GoogleLogin
-            onSuccess={(response) => createOrGetUser(response, addUser)}
+            onSuccess={(response) => {
+              const userCreated = async () => {
+                try {
+                  const user = await createOrGetUser(response, addUser);
+                  dispatch(userAdd(user));
+                } catch (err) {
+                  console.log(err);
+                }
+              };
+              userCreated();
+            }}
             onError={() => console.log("error")}
           />
         )}

@@ -8,6 +8,8 @@ import { SanityAssetDocument } from "@sanity/client";
 import { topics } from "../utils/constants";
 import { BASE_URL } from "../utils";
 import { ThreeDots } from "react-loader-spinner";
+import { useSelector } from "react-redux";
+import type { RootState } from "../store/store";
 
 const FILETYPES = ["video/mp4", "video/webm", "video/ogg"];
 
@@ -21,6 +23,9 @@ const Upload = () => {
   const [category, setcategory] = useState(topics[0].name);
   const [savingPost, setsavingPost] = useState(false);
   const { userProfile }: { userProfile: any } = useAuthStore();
+  const user = useSelector((state: RootState) => {
+    state.user.userProfile;
+  });
   const router = useRouter();
 
   const uploadVideo = async (e: any) => {
@@ -89,9 +94,6 @@ const Upload = () => {
           </div>
           <div className="border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[458px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100">
             {isLoading && (
-              // <p className="text-center text-3xl text-red-400 font-semibold">
-              //   Uploading...
-              // </p>
               <ThreeDots
                 height="80"
                 width="80"

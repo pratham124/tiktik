@@ -1,5 +1,7 @@
+import { AnyAction } from "@reduxjs/toolkit";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import { Dispatch } from "react";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -20,4 +22,6 @@ export const createOrGetUser = async (response: any, addUser: any) => {
   addUser(user);
 
   await axios.post(`${BASE_URL}/api/auth`, user);
+
+  return user;
 };
