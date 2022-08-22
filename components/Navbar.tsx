@@ -10,7 +10,7 @@ import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { createOrGetUser } from "../utils";
 import useAuthStore from "../store/authStore";
 import { IUser } from "../types";
-import { userAdd, userRemove } from "../store/userSlice";
+import { userAdd, userRemove } from "../slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
 

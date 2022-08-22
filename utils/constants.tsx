@@ -42,7 +42,7 @@ export const footerList1 = [
   "Newsroom",
   "Store",
   "Contact",
-  "Carrers",
+  "Careers",
   "ByteDance",
   "Creator Directory",
 ];

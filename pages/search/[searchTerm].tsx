@@ -11,6 +11,7 @@ import { useRouter } from "next/router";
 import useAuthStore from "../../store/authStore";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../store/store";
+import Head from "next/head";
 
 const Search = ({ videos }: { videos: Video[] }) => {
   const [isAccounts, setisAccounts] = useState(false);
@@ -27,63 +28,75 @@ const Search = ({ videos }: { videos: Video[] }) => {
   );
 
   return (
-    <div className="w-full">
-      <div className="flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full">
-        <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${accounts}`}
-          onClick={() => setisAccounts(true)}
-        >
-          Accounts
-        </p>
-        <p
-          className={`text-xl font-semibold cursor-pointer mt-2 ${isVideos}`}
-          onClick={() => setisAccounts(false)}
-        >
-          Videos
-        </p>
+    <>
+      <Head>
+        <title>Search Results</title>
+        <meta
+          name="Search"
+          content="Search page where users are able to check if an account or post exists for the search term they inputted"
+        />
+        <link rel="icon" href="/video-player.png" />
+      </Head>
+      <div className="w-full">
+        <div className="flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full">
+          <p
+            className={`text-xl font-semibold cursor-pointer mt-2 ${accounts}`}
+            onClick={() => setisAccounts(true)}
+          >
+            Accounts
+          </p>
+          <p
+            className={`text-xl font-semibold cursor-pointer mt-2 ${isVideos}`}
+            onClick={() => setisAccounts(false)}
+          >
+            Videos
+          </p>
+        </div>
+        {isAccounts && (
+          <div className="md:mt-16">
+            {searchedAccounts.length > 0 ? (
+              searchedAccounts.map((user: IUser, i: number) => (
+                <Link href={`/profile/${user._id}`} key={i}>
+                  <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200">
+                    <div className="">
+                      <Image
+                        src={user.image}
+                        width={50}
+                        height={50}
+                        className="rounded-full"
+                        alt="user profile"
+                      />
+                    </div>
+                    <div className="hidden xl:block">
+                      <p className="flex gap-1 items-center text-md font-bold text-primary lowercase">
+                        {user.userName.replace(" ", "")}{" "}
+                        <GoVerified className="text-blue-400" />
+                      </p>
+                      <p className="capitalize text-gray-400 text-xs">
+                        {user.userName}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <NoResults text={`No accounts for ${searchTerm}`} />
+            )}
+          </div>
+        )}
+        {!isAccounts && (
+          <div className="md:mt-16 flex flex-wrap gap-6 md:justify-start">
+            {videos.length ? (
+              videos.map((video: Video, i) => (
+                <VideoCard post={video} key={i} />
+              ))
+            ) : (
+              <NoResults text={`No video results for ${searchTerm}`} />
+            )}
+          </div>
+        )}
       </div>
-      {isAccounts && (
-        <div className="md:mt-16">
-          {searchedAccounts.length > 0 ? (
-            searchedAccounts.map((user: IUser, i: number) => (
-              <Link href={`/profile/${user._id}`} key={i}>
-                <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200">
-                  <div className="">
-                    <Image
-                      src={user.image}
-                      width={50}
-                      height={50}
-                      className="rounded-full"
-                      alt="user profile"
-                    />
-                  </div>
-                  <div className="hidden xl:block">
-                    <p className="flex gap-1 items-center text-md font-bold text-primary lowercase">
-                      {user.userName.replace(" ", "")}{" "}
-                      <GoVerified className="text-blue-400" />
-                    </p>
-                    <p className="capitalize text-gray-400 text-xs">
-                      {user.userName}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))
-          ) : (
-            <NoResults text={`No accounts for ${searchTerm}`} />
-          )}
-        </div>
-      )}
-      {!isAccounts && (
-        <div className="md:mt-16 flex flex-wrap gap-6 md:justify-start">
-          {videos.length ? (
-            videos.map((video: Video, i) => <VideoCard post={video} key={i} />)
-          ) : (
-            <NoResults text={`No video results for ${searchTerm}`} />
-          )}
-        </div>
-      )}
-    </div>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ import useAuthStore from "../store/authStore";
 import { IUser } from "../types";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
-import { fetchUsers } from "../store/userSlice";
+import { fetchUsers } from "../slices/userSlice";
 
 const SuggestedAccounts = () => {
   const { fetchAllUsers, allUsers } = useAuthStore();
