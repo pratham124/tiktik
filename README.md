@@ -3,7 +3,7 @@
 
 <p>A social media application where users can upload videos, like videos, comment on videos, and search for users or videos. </p>
 <br/>
-<p><strong>Link to project:</strong>TBD</p>
+<p><strong>Link to project: </strong>TBD</p>
 
 <h2>Installation</h2>
 <strong>Download the ZIP or:</strong>
