@@ -1,9 +1,8 @@
 import { NextPage } from "next";
 import React, { useState, useEffect } from "react";
 import { MdFavorite } from "react-icons/md";
-import useAuthStore from "../store/authStore";
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
+import type { RootState } from "../app/store/store";
 
 interface IProps {
   onLikeHandler: () => void;
@@ -17,8 +16,8 @@ const LikeButton: NextPage<IProps> = ({
   likes,
 }) => {
   const [alreadyLiked, setalreadyLiked] = useState(false);
-  const { userProfile }: any = useAuthStore();
-  const user = useSelector((state: RootState) => state.user.userProfile);
+
+  const userProfile = useSelector((state: RootState) => state.user.userProfile);
   const filterLikes = likes?.filter((item) => item._ref === userProfile?._id);
 
   useEffect(() => {

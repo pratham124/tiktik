@@ -5,7 +5,7 @@ import { Dispatch } from "react";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
-export const createOrGetUser = async (response: any, addUser: any) => {
+export const createOrGetUser = async (response: any) => {
   const decoded: { name: string; picture: string; sub: string } = jwt_decode(
     response.credential
   );
@@ -18,8 +18,6 @@ export const createOrGetUser = async (response: any, addUser: any) => {
     userName: name,
     image: picture,
   };
-
-  addUser(user);
 
   await axios.post(`${BASE_URL}/api/auth`, user);
 

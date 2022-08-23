@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
-import { store, persistor } from "../store/store";
+import { store, persistor } from "../app/store/store";
 import { PersistGate } from "redux-persist/integration/react";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {

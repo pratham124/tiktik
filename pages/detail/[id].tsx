@@ -9,11 +9,10 @@ import { HiVolumeUp, HiVolumeOff } from "react-icons/hi";
 import axios from "axios";
 import { BASE_URL } from "../../utils";
 import { Video } from "../../types";
-import useAuthStore from "../../store/authStore";
 import LikeButton from "../../components/LikeButton";
 import Comments from "../../components/Comments";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import type { RootState } from "../../app/store/store";
 import Head from "next/head";
 
 interface Iprops {
@@ -28,8 +27,8 @@ const Detail = ({ postDetails }: Iprops) => {
   const [isPostingComment, setisPostingComment] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
-  const { userProfile }: any = useAuthStore();
-  const user = useSelector((state: RootState) => state.user.userProfile);
+
+  const userProfile = useSelector((state: RootState) => state.user.userProfile);
 
   useEffect(() => {
     if (videoRef?.current) {

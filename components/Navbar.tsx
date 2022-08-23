@@ -8,18 +8,17 @@ import { IoMdAdd } from "react-icons/io";
 import Logo from "../utils/tiktik-logo.png";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { createOrGetUser } from "../utils";
-import useAuthStore from "../store/authStore";
+
 import { IUser } from "../types";
-import { userAdd, userRemove } from "../slices/userSlice";
+import { userAdd, userRemove } from "../app/slices/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import type { RootState } from "../store/store";
+import type { RootState } from "../app/store/store";
 
 const Navbar = () => {
-  const { userProfile, addUser, removeUser } = useAuthStore();
   const [user, setuser] = useState<IUser | null>();
   const [searchValue, setSearchValue] = useState("");
   const router = useRouter();
-  const client = useSelector((state: RootState) => state.user.userProfile);
+  const userProfile = useSelector((state: RootState) => state.user.userProfile);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -97,7 +96,7 @@ const Navbar = () => {
               className="px-2 cursor-pointer"
               onClick={() => {
                 googleLogout();
-                removeUser();
+
                 dispatch(userRemove());
               }}
             >
@@ -110,7 +109,7 @@ const Navbar = () => {
             onSuccess={(response) => {
               const userCreated = async () => {
                 try {
-                  const user = await createOrGetUser(response, addUser);
+                  const user = await createOrGetUser(response);
                   dispatch(userAdd(user));
                 } catch (err) {
                   console.log(err);

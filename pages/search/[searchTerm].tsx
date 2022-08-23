@@ -8,18 +8,16 @@ import VideoCard from "../../components/VideoCard";
 import NoResults from "../../components/NoResults";
 import { IUser, Video } from "../../types";
 import { useRouter } from "next/router";
-import useAuthStore from "../../store/authStore";
 import { useSelector } from "react-redux";
-import type { RootState } from "../../store/store";
+import type { RootState } from "../../app/store/store";
 import Head from "next/head";
 
 const Search = ({ videos }: { videos: Video[] }) => {
   const [isAccounts, setisAccounts] = useState(false);
   const router = useRouter();
   const { searchTerm }: any = router.query;
-  const { allUsers } = useAuthStore();
-  const totalUsers = useSelector((state: RootState) => {
-    state.user.allUsers;
+  const allUsers = useSelector((state: RootState) => {
+    return state.user.allUsers;
   });
   const accounts = isAccounts ? "border-b-2 border-black" : "text-gray-400";
   const isVideos = !isAccounts ? "border-b-2 border-black" : "text-gray-400";

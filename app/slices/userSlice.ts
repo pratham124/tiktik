@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { BASE_URL } from "../utils";
-import { IUser } from "../types";
+import { BASE_URL } from "../../utils";
+import { IUser } from "../../types";
 
 interface userState {
   userProfile: null | IUser;

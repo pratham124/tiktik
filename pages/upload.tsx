@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import axios from "axios";
-import useAuthStore from "../store/authStore";
 import { client } from "../utils/client";
 import { SanityAssetDocument } from "@sanity/client";
 import { topics } from "../utils/constants";
 import { BASE_URL } from "../utils";
 import { ThreeDots } from "react-loader-spinner";
 import { useSelector } from "react-redux";
-import type { RootState } from "../store/store";
+import type { RootState } from "../app/store/store";
 import Head from "next/head";
 
 const FILETYPES = ["video/mp4", "video/webm", "video/ogg"];
@@ -23,9 +22,8 @@ const Upload = () => {
   const [caption, setcaption] = useState("");
   const [category, setcategory] = useState(topics[0].name);
   const [savingPost, setsavingPost] = useState(false);
-  const { userProfile }: { userProfile: any } = useAuthStore();
-  const user = useSelector((state: RootState) => {
-    state.user.userProfile;
+  const userProfile = useSelector((state: RootState) => {
+    return state.user.userProfile;
   });
   const router = useRouter();
 
