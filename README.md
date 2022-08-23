@@ -7,13 +7,18 @@
 
 <h2>Installation</h2>
 <strong>Download the ZIP or:</strong>
+<br/>
 <span>https://github.com/pratham124/tiktok-clone.git</span>
+<br/>
 <br/>
 <strong>Then install dev dependencies:</strong>
 <span>npm install</span>
 <br/>
+<br/>
 <strong>Then run the script:</strong>
+<br/>
 <span>npm run build</span>
+<br/>
 <span>npm run start</span>
 
 <h2>How It's Made:</h2>
@@ -21,5 +26,6 @@
 <br/>
 <br/>
 <strong>Why was this stack chosen?</strong>
+<br/>
 <br/>
 <Redux>TypeScript was used to ensure that no data type errors occur. I used Next instead of just React, because I find it easier to create page routes, and the pages are pre-rendered; Leading to improved SEO and performance. Also, with the next api routes feature, I can connect to a backend endpoint. Redux was used to manage the user and allUsers state over multiple components. I could have used useContext instead, but I find redux to be easier. Additionally, with the redux-persist package it makes persisting the state to local storage easier to implement. Since I have not explored the backend side of things yet, I ended up using Sanity to create a database. I could have used Firebase instead, but I prefer the user experience that Sanity provides.</p>
