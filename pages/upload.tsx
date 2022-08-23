@@ -31,6 +31,7 @@ const Upload = () => {
     const selectedFile = e.target.files[0];
 
     if (FILETYPES.includes(selectedFile.type)) {
+      setwrongFileType(false);
       setisLoading(true);
       client.assets
         .upload("file", selectedFile, {
